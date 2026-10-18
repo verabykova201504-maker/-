@@ -1,0 +1,765 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍰 ВКУСНО И ПРИЯТНО</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #080705;
+      --coffee: #362023;
+      --violet: #700548;
+      --glaucous: #7272AB;
+      --blue: #7899D4;
+
+      --bg: #080705;
+      --surface: #181116;
+      --text: #ffffff;
+      --muted: #d2c5d1;
+      --border: #700548;
+      --hero-bg: #24141f;
+      --button-text: #ffffff;
+      --shadow: #00000035;
+    }
+
+    body.light-theme {
+      --bg: #f4f3fa;
+      --surface: #ffffff;
+      --text: #241b2e;
+      --muted: #51475d;
+      --border: #c7c2e2;
+      --hero-bg: #e8e6f5;
+      --button-text: #ffffff;
+      --shadow: #36202315;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Roboto Condensed", sans-serif;
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 16px 6%;
+      background: var(--surface);
+      border-bottom: 2px solid var(--violet);
+      box-shadow: 0 4px 15px var(--shadow);
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    .logo {
+      margin: 0;
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(21px, 3vw, 30px);
+      color: var(--text);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--blue);
+    }
+
+    .cart-link span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 6px;
+      margin-left: 3px;
+      border-radius: 50px;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .theme-toggle {
+      padding: 10px 14px;
+      border: 1px solid var(--blue);
+      border-radius: 9px;
+      background: var(--violet);
+      color: #fff;
+      font-weight: 700;
+      transition: transform 0.2s, background-color 0.25s;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+      background: var(--glaucous);
+    }
+
+    .hero {
+      padding: 65px 20px;
+      text-align: center;
+      background: var(--hero-bg);
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    .hero h2 {
+      margin: 0 0 16px;
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(30px, 5vw, 48px);
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    .primary-button {
+      display: inline-block;
+      padding: 13px 24px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--violet);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-2px);
+      background: var(--glaucous);
+    }
+
+    main {
+      width: min(1200px, 92%);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      margin: 40px 0 24px;
+      text-align: center;
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(28px, 4vw, 36px);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+      padding-bottom: 45px;
+    }
+
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 18px;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: background-color 0.25s, color 0.25s,
+                  transform 0.2s, box-shadow 0.2s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 9px 22px var(--shadow);
+    }
+
+    .product-emoji {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 125px;
+      height: 115px;
+      margin-bottom: 10px;
+      border-radius: 16px;
+      background: var(--hero-bg);
+      font-size: 76px;
+    }
+
+    .product h3 {
+      margin: 12px 0 8px;
+      font-family: "Oswald", sans-serif;
+      font-size: 23px;
+    }
+
+    .product-description {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .price {
+      margin: 5px 0 17px;
+      color: var(--blue);
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .add-button {
+      width: 100%;
+      margin-top: auto;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--violet);
+      color: #fff;
+      font-weight: 700;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .add-button:hover {
+      background: var(--glaucous);
+      transform: translateY(-2px);
+    }
+
+    .cart {
+      margin-bottom: 45px;
+      padding: 25px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    .cart h2 {
+      margin-top: 0;
+      font-family: "Oswald", sans-serif;
+      font-size: 30px;
+    }
+
+    .empty-cart {
+      color: var(--muted);
+      text-align: center;
+      padding: 15px 0;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item-name {
+      font-weight: 700;
+    }
+
+    .cart-item-price {
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quantity-controls button {
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--violet);
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .quantity-controls button:hover {
+      background: var(--glaucous);
+    }
+
+    .quantity {
+      min-width: 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .cart-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .total {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .checkout-button {
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--blue);
+      color: #080705;
+      font-weight: 700;
+    }
+
+    .checkout-button:hover {
+      background: var(--glaucous);
+      color: #fff;
+    }
+
+    .checkout-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    #message {
+      min-height: 24px;
+      margin-top: 15px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 28px 15px;
+      text-align: center;
+      background: var(--surface);
+      border-top: 2px solid var(--violet);
+      color: var(--muted);
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    #backToTop {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 90;
+      display: none;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--violet);
+      color: #fff;
+      font-size: 24px;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    #backToTop:hover {
+      background: var(--glaucous);
+    }
+
+    @media (max-width: 650px) {
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+
+      nav {
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 45px 18px;
+      }
+
+      .products {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 13px;
+      }
+
+      .product {
+        padding: 17px 12px;
+      }
+
+      .product-emoji {
+        width: 100px;
+        height: 95px;
+        font-size: 62px;
+      }
+
+      .cart {
+        padding: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="logo">🍰 ВКУСНО И ПРИЯТНО</h1>
+
+    <nav aria-label="Главная навигация">
+      <a href="#home">Главная</a>
+      <a href="#products">Сладости</a>
+      <a href="#cart" class="cart-link">
+        🛒 Корзина <span id="cartCount">0</span>
+      </a>
+    </nav>
+
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      type="button"
+      aria-label="Переключить тему"
+    >
+      ☀️ Светлая тема
+    </button>
+  </header>
+
+  <section class="hero" id="home">
+    <h2>Мир вкусных сладостей!</h2>
+    <p>
+      Любимые пирожные, торты и другие лакомства по приятным ценам.
+      Выбирай сладости и добавляй их в корзину!
+    </p>
+    <a href="#products" class="primary-button">Выбрать сладости 🍩</a>
+  </section>
+
+  <main>
+    <section id="products">
+      <h2 class="section-title">🍰 Наши сладости</h2>
+      <div class="products" id="productsList"></div>
+    </section>
+
+    <section class="cart" id="cart">
+      <h2>🛒 Твоя корзина</h2>
+      <div id="cartItems">
+        <p class="empty-cart">Корзина пока пустая. Добавь что-нибудь вкусное! 😋</p>
+      </div>
+
+      <div class="cart-bottom">
+        <div class="total">
+          Итого: <span id="cartTotal">0</span> ₸
+        </div>
+        <button class="checkout-button" id="checkoutButton" type="button" disabled>
+          Оформить заказ
+        </button>
+      </div>
+
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>🍰 ВКУСНО И ПРИЯТНО — сладости для хорошего настроения!</p>
+    <p>© 2026 Все права защищены.</p>
+  </footer>
+
+  <button id="backToTop" type="button" aria-label="Наверх" title="Наверх">
+    ↑
+  </button>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        name: "Шоколадный торт",
+        price: 2500,
+        emoji: "🎂",
+        description: "Нежный шоколадный торт для праздника."
+      },
+      {
+        id: 2,
+        name: "Клубничное пирожное",
+        price: 800,
+        emoji: "🧁",
+        description: "Воздушное пирожное с клубничным вкусом."
+      },
+      {
+        id: 3,
+        name: "Сладкий пончик",
+        price: 500,
+        emoji: "🍩",
+        description: "Мягкий пончик с аппетитной глазурью."
+      },
+      {
+        id: 4,
+        name: "Шоколад",
+        price: 400,
+        emoji: "🍫",
+        description: "Вкусный шоколад для сладкого перерыва."
+      },
+      {
+        id: 5,
+        name: "Печенье",
+        price: 300,
+        emoji: "🍪",
+        description: "Рассыпчатое печенье к чаю."
+      },
+      {
+        id: 6,
+        name: "Мороженое",
+        price: 600,
+        emoji: "🍦",
+        description: "Холодное лакомство для хорошего настроения."
+      }
+    ];
+
+    // Корзина хранит количество каждого товара по его ID.
+    const cart = {};
+
+    const productsList = document.getElementById("productsList");
+    const cartItems = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const cartTotal = document.getElementById("cartTotal");
+    const checkoutButton = document.getElementById("checkoutButton");
+    const message = document.getElementById("message");
+    const themeToggle = document.getElementById("themeToggle");
+    const backToTop = document.getElementById("backToTop");
+
+    function formatPrice(price) {
+      return price.toLocaleString("ru-RU");
+    }
+
+    // Создаём карточки товаров.
+    function renderProducts() {
+      productsList.innerHTML = products.map(product => `
+        <article class="product">
+          <div class="product-emoji" aria-hidden="true">${product.emoji}</div>
+          <h3>${product.name}</h3>
+          <p class="product-description">${product.description}</p>
+          <p class="price">${formatPrice(product.price)} ₸</p>
+          <button
+            class="add-button"
+            type="button"
+            data-add="${product.id}"
+          >
+            + Добавить в корзину
+          </button>
+        </article>
+      `).join("");
+    }
+
+    // Добавление товара. Делегирование событий работает для всех карточек.
+    productsList.addEventListener("click", function(event) {
+      const button = event.target.closest("[data-add]");
+
+      if (!button) return;
+
+      const id = Number(button.dataset.add);
+      cart[id] = (cart[id] || 0) + 1;
+
+      message.textContent = "Товар добавлен в корзину! 🍰";
+      renderCart();
+    });
+
+    // Рисуем корзину и пересчитываем стоимость.
+    function renderCart() {
+      const entries = Object.entries(cart)
+        .filter(([, quantity]) => quantity > 0);
+
+      const totalQuantity = entries.reduce(
+        (sum, [, quantity]) => sum + quantity, 0
+      );
+
+      const totalPrice = entries.reduce((sum, [id, quantity]) => {
+        const product = products.find(item => item.id === Number(id));
+        return sum + product.price * quantity;
+      }, 0);
+
+      cartCount.textContent = totalQuantity;
+      cartTotal.textContent = formatPrice(totalPrice);
+      checkoutButton.disabled = totalQuantity === 0;
+
+      if (entries.length === 0) {
+        cartItems.innerHTML = `
+          <p class="empty-cart">
+            Корзина пока пустая. Добавь что-нибудь вкусное! 😋
+          </p>
+        `;
+        return;
+      }
+
+      cartItems.innerHTML = entries.map(([id, quantity]) => {
+        const product = products.find(item => item.id === Number(id));
+
+        return `
+          <div class="cart-item">
+            <div>
+              <div class="cart-item-name">
+                ${product.emoji} ${product.name}
+              </div>
+              <div class="cart-item-price">
+                ${formatPrice(product.price)} ₸ за штуку
+              </div>
+            </div>
+
+            <div class="quantity-controls">
+              <button
+                type="button"
+                data-minus="${product.id}"
+                aria-label="Уменьшить количество: ${product.name}"
+              >−</button>
+
+              <span class="quantity">${quantity}</span>
+
+              <button
+                type="button"
+                data-plus="${product.id}"
+                aria-label="Увеличить количество: ${product.name}"
+              >+</button>
+            </div>
+
+            <strong>${formatPrice(product.price * quantity)} ₸</strong>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // Обработка кнопок + и − внутри корзины.
+    cartItems.addEventListener("click", function(event) {
+      const plusButton = event.target.closest("[data-plus]");
+      const minusButton = event.target.closest("[data-minus]");
+
+      if (plusButton) {
+        const id = Number(plusButton.dataset.plus);
+        cart[id] = (cart[id] || 0) + 1;
+        message.textContent = "Количество товара увеличено.";
+      }
+
+      if (minusButton) {
+        const id = Number(minusButton.dataset.minus);
+
+        if (cart[id]) {
+          cart[id] -= 1;
+
+          if (cart[id] <= 0) {
+            delete cart[id];
+          }
+        }
+
+        message.textContent = "Корзина обновлена.";
+      }
+
+      renderCart();
+    });
+
+    // Демонстрационное оформление заказа.
+    checkoutButton.addEventListener("click", function() {
+      const entries = Object.entries(cart)
+        .filter(([, quantity]) => quantity > 0);
+
+      if (entries.length === 0) return;
+
+      const totalPrice = entries.reduce((sum, [id, quantity]) => {
+        const product = products.find(item => item.id === Number(id));
+        return sum + product.price * quantity;
+      }, 0);
+
+      message.textContent =
+        `Заказ подготовлен на сумму ${formatPrice(totalPrice)} ₸. ` +
+        "Для настоящих покупок нужно подключить оформление и оплату.";
+
+      // Корзина не очищается автоматически, чтобы заказ можно было проверить.
+    });
+
+    // Переключение светлой и тёмной темы.
+    function applyTheme(theme) {
+      const isLight = theme === "light";
+
+      document.body.classList.toggle("light-theme", isLight);
+
+      themeToggle.textContent = isLight
+        ? "🌙 Тёмная тема"
+        : "☀️ Светлая тема";
+
+      themeToggle.setAttribute(
+        "aria-label",
+        isLight ? "Включить тёмную тему" : "Включить светлую тему"
+      );
+    }
+
+    // Загружаем сохранённую тему, если браузер разрешает localStorage.
+    let savedTheme = "dark";
+
+    try {
+      savedTheme = localStorage.getItem("sweetShopTheme") || "dark";
+    } catch (error) {
+      // По умолчанию остаётся тёмная тема.
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener("click", function() {
+      const newTheme = document.body.classList.contains("light-theme")
+        ? "dark"
+        : "light";
+
+      applyTheme(newTheme);
+
+      try {
+        localStorage.setItem("sweetShopTheme", newTheme);
+      } catch (error) {
+        // Переключение всё равно работает до перезагрузки страницы.
+      }
+    });
+
+    // Кнопка возврата наверх.
+    window.addEventListener("scroll", function() {
+      backToTop.style.display = window.scrollY > 200 ? "block" : "none";
+    });
+
+    backToTop.addEventListener("click", function() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
