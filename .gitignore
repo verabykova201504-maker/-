@@ -1,0 +1,4 @@
+node_modules/
+.env
+bot/carts.json
+bot/orders.json

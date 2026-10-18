@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "servor --reload"
+    "start": "servor --reload",
+    "bot": "node bot/bot.js"
   },
   "dependencies": {
     "servor": "^4.0.2"
